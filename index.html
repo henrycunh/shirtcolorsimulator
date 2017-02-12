@@ -2,9 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Simular Cor de Camisa</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/jqPlugins/colorpicker/js/colorpicker.js"></script>
+    <script src="js/gradientmaps.min.js"></script>
+    <script src="js/jquery.gradientPicker.js"></script>
+    <script src="js/jqueryUI-custom.js"></script>
+    <link rel="stylesheet" href="css/jquery.gradientPicker.css">
+    <link rel="stylesheet" href="js/jqPlugins/colorpicker/css/colorpicker.css">
+    
+    <style>
+        #gradient_pick{
+            width: 80%;
+            margin: 0 auto;
+            height: 40px;
+            margin-bottom: 60px;
+        }
+        body{
+            background-color: #333;
+        }
+        .cont{
+            margin: 0 auto;
+            height: 800px;
+            width: 600px;
+            overflow: hidden;
+            background-color: #111;
+        }
+        
+        
+    </style>
+    
 </head>
 <body>
+    <div id='gradient_pick'></div>
+    <div class="cont">
+        <img src="imgs/Camisa%20Map.png" alt="" id='image' width="600px">
+    </div>
     
+    
+    
+    
+    
+    
+    
+    <script>
+        $(function(){
+            var $img = $("#img");
+            
+            $('#gradient_pick').gradientPicker({
+                change: applyMap,
+            });
+            
+            
+            
+        });
+        
+        function applyMap(points){
+            var gradient = '';
+            points.forEach(function(point){
+                gradient += point.color + " " + Math.round(point.position * 100) + "%, ";
+            });
+            gradient = gradient.slice(0, gradient.length-2);
+            
+            var image = document.getElementById('image');
+            GradientMaps.applyGradientMap(image, gradient);
+        }
+    
+    
+    </script>
 </body>
 </html>

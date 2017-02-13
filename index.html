@@ -12,6 +12,25 @@
     <link rel="stylesheet" href="js/jqPlugins/colorpicker/css/colorpicker.css">
     
     <style>
+        #io{
+            width: 80%;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+        #io input{
+            margin-bottom: 20px;
+            height: 40px;
+            padding-left: 10px; 
+            width: 45%;
+            display: inline-block;
+        }
+        #input{
+            float: left;
+        }
+        #output{
+            float: right;
+        }
+        
         #gradient_pick{
             width: 80%;
             margin: 0 auto;
@@ -34,6 +53,9 @@
     
 </head>
 <body>
+   <div id="io">
+       <input type="text" id='input' oninput='mapIn()' placeholder='Entrada de Cores'><input type="text" id='output' placeholder='Saida de Cores'>
+   </div>
     <div id='gradient_pick'></div>
     <div class="cont">
         <img src="imgs/Camisa%20Map.png" alt="" id='image' width="600px">
@@ -57,6 +79,15 @@
             
         });
         
+        function mapIn(){
+            $('#gradient_pick').html('');
+            $('#gradient_pick').gradientPicker({
+                change: applyMap,
+                controlPoints: $('#input').val().split(', ')
+            });
+            $("#output").val($('#input').val());
+        }
+        
         function applyMap(points){
             var gradient = '';
             points.forEach(function(point){
@@ -66,6 +97,7 @@
             
             var image = document.getElementById('image');
             GradientMaps.applyGradientMap(image, gradient);
+            $("#output").val(gradient);
         }
     
     
